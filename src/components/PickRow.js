@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Button } from 'mdbreact';
 import axios from 'axios';
 import { DB_INFO } from '../Database';
+import { Teams } from '../TeamData';
 
 class PickRow extends Component {
     
@@ -74,12 +75,14 @@ class PickRow extends Component {
     }
     
     render() {
+        var home = this.state.obj.home.abbr;
+        var away = this.state.obj.away.abbr;
         return (
             <div className="login-card col-md-6" style={{marginTop:20}}>
                 <h4>{this.state.obj.gameid}</h4>
-                <Button size="lg" block outline color={this.getColor(this.state.obj.away.abbr)} onClick={this.pickAway}>{this.state.obj.away.abbr}</Button>
+                <Button size="lg" block outline color={this.getColor(away)} onClick={this.pickAway}>{Teams[away].city} {Teams[away].mascot}</Button>
                 <p style={{marginTop:10}}>@</p>
-                <Button size="lg" block outline color={this.getColor(this.state.obj.home.abbr)} onClick={this.pickHome} style={{marginTop:10}}>{this.state.obj.home.abbr}</Button>
+                <Button size="lg" block outline color={this.getColor(home)} onClick={this.pickHome} style={{marginTop:10}}>{Teams[home].city} {Teams[home].mascot}</Button>
             </div>
     );
   }
