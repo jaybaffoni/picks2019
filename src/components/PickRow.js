@@ -80,9 +80,19 @@ class PickRow extends Component {
         return (
             <div className="login-card col-md-6" style={{marginTop:20}}>
                 <h4>{this.state.obj.gameid}</h4>
-                <Button size="lg" block outline color={this.getColor(away)} onClick={this.pickAway}>{Teams[away].city} {Teams[away].mascot}</Button>
+                <Button size="lg" block outline color={this.getColor(away)} onClick={this.pickAway}>
+                    <div>
+                        <p style={{fontSize:'12px',margin:'0px'}}>{Teams[away].city}</p>
+                        <p style={{fontSize:'22px',margin:'0px'}}>{Teams[away].mascot}</p>
+                    </div>
+                </Button>
                 <p style={{marginTop:10}}>@</p>
-                <Button size="lg" block outline color={this.getColor(home)} onClick={this.pickHome} style={{marginTop:10}}>{Teams[home].city} {Teams[home].mascot}</Button>
+                <Button size="lg" block outline color={this.getColor(home)} onClick={this.pickHome} style={{marginTop:10}}>
+                    <div>
+                        <p style={{fontSize:'12px',margin:'0px'}}>{Teams[home].city}</p>
+                        <p style={{fontSize:'22px',margin:'0px'}}>{Teams[home].mascot}</p>
+                    </div>
+                </Button>
             </div>
     );
   }
