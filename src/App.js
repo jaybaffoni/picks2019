@@ -4,6 +4,7 @@ import Auth from './components/Auth';
 import Home from './components/Home';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Button, Navbar, NavbarBrand, NavbarToggler, Collapse, NavbarNav, NavItem, NavLink } from 'mdbreact';
+import Standings from './components/Standings';
 
 class App extends Component {
   constructor() {
@@ -54,6 +55,9 @@ class App extends Component {
                             <NavLink to="/home">Home</NavLink>
                         </NavItem>
                         <NavItem>
+                            <NavLink to="/standings">Standings</NavLink>
+                        </NavItem>
+                        <NavItem>
                             <Button size="sm" color="elegant" onClick={this.signOut}>Sign Out</Button>
                         </NavItem>
                     </NavbarNav>
@@ -62,6 +66,7 @@ class App extends Component {
             <div style={{paddingTop:"75px", paddingRight:'10px', paddingLeft:'10px'}}>
                 <Switch>
                     <PrivateRoute path="/home" component={Home}/>
+                    <PrivateRoute path="/standings" component={Standings}/>
                     <Route path="*" render={() => <Redirect to="/home" />} />
                 </Switch>
             </div>
