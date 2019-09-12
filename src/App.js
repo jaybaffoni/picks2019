@@ -38,6 +38,10 @@ class App extends Component {
       this.setState({user:null, collapse: false});
   }
 
+  closeMenu = () => {
+      this.setState({collapse:false});
+  }
+
   render() {
     return (
       <div>
@@ -52,10 +56,10 @@ class App extends Component {
                 <Collapse isOpen = { this.state.collapse } navbar>
                     <NavbarNav right>
                         <NavItem>
-                            <NavLink to="/home">Home</NavLink>
+                            <NavLink onClick={this.closeMenu} to="/home">Home</NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink to="/standings">Standings</NavLink>
+                            <NavLink onClick={this.closeMenu} to="/standings">Standings</NavLink>
                         </NavItem>
                         <NavItem>
                             <Button size="sm" color="elegant" onClick={this.signOut}>Sign Out</Button>
