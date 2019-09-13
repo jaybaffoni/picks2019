@@ -5,6 +5,7 @@ import Home from './components/Home';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { Button, Navbar, NavbarBrand, NavbarToggler, Collapse, NavbarNav, NavItem, NavLink } from 'mdbreact';
 import Standings from './components/Standings';
+import Results from './components/Results';
 
 class App extends Component {
   constructor() {
@@ -59,6 +60,9 @@ class App extends Component {
                             <NavLink onClick={this.closeMenu} to="/home">Home</NavLink>
                         </NavItem>
                         <NavItem>
+                            <NavLink onClick={this.closeMenu} to="/results">Results</NavLink>
+                        </NavItem>
+                        <NavItem>
                             <NavLink onClick={this.closeMenu} to="/standings">Standings</NavLink>
                         </NavItem>
                         <NavItem>
@@ -70,6 +74,7 @@ class App extends Component {
             <div style={{paddingTop:"75px", paddingRight:'10px', paddingLeft:'10px'}}>
                 <Switch>
                     <PrivateRoute path="/home" component={Home}/>
+                    <PrivateRoute path="/results" component={Results}/>
                     <PrivateRoute path="/standings" component={Standings}/>
                     <Route path="*" render={() => <Redirect to="/home" />} />
                 </Switch>

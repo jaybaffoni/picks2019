@@ -32,8 +32,8 @@ class Standings extends Component {
             return(
                 <tr key={i}>
                     <td>{object.displayname}</td>
-                    <td>{object.wins}</td>
-                    <td>{object.losses}</td>
+                    <td style={{textAlign:'center'}}>{object.wins}</td>
+                    <td style={{textAlign:'center'}}>{object.losses}</td>
                 </tr>
                     )
             
@@ -48,8 +48,8 @@ class Standings extends Component {
                     <thead>
                         <tr>
                             <td>Name</td>
-                            <td>Wins</td>
-                            <td>Losses</td>
+                            <td style={{textAlign:'center'}}>Wins</td>
+                            <td style={{textAlign:'center'}}>Losses</td>
                         </tr>
                         
                     </thead>
