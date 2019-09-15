@@ -18,10 +18,22 @@ class Home extends Component {
         this.prev = this.prev.bind(this);
         this.next = this.next.bind(this);
         this.pickError = this.pickError.bind(this);
+        this.getWeek = this.getWeek.bind(this);
     }
 
     componentDidMount(){
-        this.getGames();
+        this.getWeek();
+    }
+
+    getWeek(){
+        axios.get(DB_INFO.address + 'ffgames/apigames')
+            .then((response) => {
+                // console.log(response.data);
+                this.setState({week:response.data.currentWeek}, this.getGames());
+            })
+            .catch((error) => {
+                console.log(error);
+            });
     }
 
     toggle = () => {
@@ -35,17 +47,19 @@ class Home extends Component {
     }
 
     getGames(){
-        axios.get(DB_INFO.address + 'ffgames')
+        var url = DB_INFO.address + 'ffgames/user/' + this.state.user.id;
+        // console.log(url);
+        axios.get(url)
             .then((response) => {
                 var newGames = {};
                 for(var i = 1; i < 18; i++){
                     newGames['week' + i] = [];
                 }
-                for(var j = 0; j < response.data.Schedule.length; j++){
-                    newGames['week' + response.data.Schedule[j].gameWeek].push(response.data.Schedule[j]);
+                for(var j = 0; j < response.data.length; j++){
+                    newGames['week' + response.data[j].week].push(response.data[j]);
                 }
 
-                this.setState({games:newGames, week:response.data.currentWeek});
+                this.setState({games:newGames});
             })
             .catch((error) => {
                 console.log(error);
@@ -57,7 +71,7 @@ class Home extends Component {
         var gameMap = this.state.games[weekString];
         return gameMap.map((object, i) => {
             return(
-                    <PickRow key={object.gameId} obj={object} user={this.state.user} callback={this.pickError}/>
+                    <PickRow key={object.id} obj={object} user={this.state.user} callback={this.pickError}/>
                 )
             
         })

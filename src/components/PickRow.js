@@ -10,29 +10,13 @@ class PickRow extends Component {
     
     constructor(props){
         super(props);
-        this.state = {user: props.user, obj: props.obj, team: 'none', pickid:null};
-        this.getPick = this.getPick.bind(this);
+        // console.log(props.obj);
+        this.state = {user: props.user, obj: props.obj, team: props.obj.team};
         this.getColor = this.getColor.bind(this);
         this.makePick = this.makePick.bind(this);
         this.pickHome = this.pickHome.bind(this);
         this.pickAway = this.pickAway.bind(this);
         this.throwError = this.throwError.bind(this);
-    }
-
-    componentDidMount(){
-        this.getPick();
-    }
-    
-    getPick(){
-        axios.get(DB_INFO.address + 'ffpicks/' + this.state.user.id + '/' + this.state.obj.gameId)
-          .then((response) => {
-                if(response.data.team){
-                    this.setState({team: response.data.team, pickid: response.data.id});   
-                }
-            })
-          .catch((error) => {
-            console.log(error);
-          });
     }
     
     getColor(team){
@@ -44,11 +28,11 @@ class PickRow extends Component {
     }
     
     pickHome(){
-        this.makePick(this.state.obj.homeTeam);
+        this.makePick(this.state.obj.home);
     }
     
     pickAway(){
-        this.makePick(this.state.obj.awayTeam);
+        this.makePick(this.state.obj.away);
     }
     
     throwError(error){
@@ -57,15 +41,14 @@ class PickRow extends Component {
 
     makePick(team){
         var data = {
-            pickid: this.state.pickid,
             userid: this.state.user.id, 
             gameid: this.state.obj.gameId, 
-            week: this.state.obj.gameWeek,
-            date: this.state.obj.gameDate,
-            time: this.state.obj.gameTimeET,
+            week: this.state.obj.week,
+            date: this.state.obj.gamedate,
+            time: this.state.obj.gametime,
             team: team
         };
-        if(this.state.team === 'none'){
+        if(!this.state.obj.team){
             axios.post(DB_INFO.address + 'ffpicks', data)
                 .then((response) => {
                     if(response.data.error){
@@ -95,15 +78,15 @@ class PickRow extends Component {
     }
     
     render() {
-        var home = this.state.obj.homeTeam;
-        var away = this.state.obj.awayTeam;
+        var home = this.state.obj.home;
+        var away = this.state.obj.away;
 
-        var d = new Date(this.state.obj.gameDate);
+        var d = new Date(this.state.obj.gamedate);
         var gd = weekdays[d.getDay() + 1];
 
         return (
             <div className="login-card col-md-6" style={{marginTop:20}}>
-                <h4>{gd} {this.state.obj.gameTimeET}</h4>
+                <h4>{gd} {this.state.obj.gametime}</h4>
                 <Button size="lg" block outline color={this.getColor(away)} onClick={this.pickAway}>
                     <div>
                         <p style={{fontSize:'12px',margin:'0px'}}>{Teams[away].city}</p>
