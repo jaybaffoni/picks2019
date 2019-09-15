@@ -21,7 +21,7 @@ class Results extends Component {
     }
 
     getWeek(){
-        axios.get(DB_INFO.address + 'ffgames')
+        axios.get(DB_INFO.address + 'ffgames/apigames')
             .then((response) => {
                 this.setState({week:response.data.currentWeek, update:true}, this.getResults());
             })
